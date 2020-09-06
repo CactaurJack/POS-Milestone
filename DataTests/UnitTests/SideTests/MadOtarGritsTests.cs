@@ -15,16 +15,23 @@ namespace BleakwindBuffet.DataTests.UnitTests.SideTests
         [Fact]
         public void ShouldBeSmallByDefault()
         {
+            Data.Sides.MadOtarGrits side = new Data.Sides.MadOtarGrits();
+            Assert.True(side.Size == Size.Small);
         }
                 
         [Fact]
         public void ShouldBeAbleToSetSize()
         {
+            Data.Sides.MadOtarGrits side = new Data.Sides.MadOtarGrits();
+            side.Size = Size.Medium;
+            Assert.False(side.Size == Size.Small);
         }
 
         [Fact]
         public void ShouldReturnCorrectStringOnSpecialInstructions()
         {
+            Data.Sides.MadOtarGrits side = new Data.Sides.MadOtarGrits();
+            Assert.Empty(side.SpecialInstructions);
         }
 
         [Theory]
@@ -33,6 +40,10 @@ namespace BleakwindBuffet.DataTests.UnitTests.SideTests
         [InlineData(Size.Large, 1.93)]
         public void ShouldReturnCorrectPriceBasedOnSize(Size size, double price)
         {
+            Data.Sides.MadOtarGrits side = new Data.Sides.MadOtarGrits();
+            side.Size = size;
+            Assert.True(size == side.Size);
+            Assert.True(price == side.Price);
         }
 
         [Theory]
@@ -41,6 +52,10 @@ namespace BleakwindBuffet.DataTests.UnitTests.SideTests
         [InlineData(Size.Large, 179)]
         public void ShouldReturnCorrectCaloriesBasedOnSize(Size size, uint calories)
         {
+            Data.Sides.MadOtarGrits side = new Data.Sides.MadOtarGrits();
+            side.Size = size;
+            Assert.True(size == side.Size);
+            Assert.True(calories == side.Calories);
         }
 
         [Theory]
@@ -49,6 +64,9 @@ namespace BleakwindBuffet.DataTests.UnitTests.SideTests
         [InlineData(Size.Large, "Large Mad Otar Grits")]
         public void ShouldReturnCorrectToStringBasedOnSize(Size size, string name)
         {
+            Data.Sides.MadOtarGrits side = new Data.Sides.MadOtarGrits();
+            side.Size = size;
+            Assert.Equal(name, side.ToString());
         }
     }
 }

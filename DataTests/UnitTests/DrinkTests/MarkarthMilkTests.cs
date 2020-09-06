@@ -15,21 +15,31 @@ namespace BleakwindBuffet.DataTests.UnitTests.DrinkTests
         [Fact]
         public void ShouldNotIncludeIceByDefault()
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            Assert.False(drink.Ice);
         }
 
         [Fact]
         public void ShouldBySmallByDefault()
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            Assert.True(drink.Size == Size.Small);
         }
 
         [Fact]
         public void ShouldByAbleToSetIce()
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            drink.Ice = true;
+            Assert.True(drink.Ice);
         }
 
         [Fact]
         public void ShouldBeAbleToSetSize()
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            drink.Size = Size.Medium;
+            Assert.False(drink.Size == Size.Small);
         }
 
         [Theory]
@@ -38,6 +48,10 @@ namespace BleakwindBuffet.DataTests.UnitTests.DrinkTests
         [InlineData(Size.Large, 1.22)]
         public void ShouldHaveCorrectPriceForSize(Size size, double price)
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            drink.Size = size;
+            Assert.True(size == drink.Size);
+            Assert.True(price == drink.Price);
         }
 
         [Theory]
@@ -46,6 +60,10 @@ namespace BleakwindBuffet.DataTests.UnitTests.DrinkTests
         [InlineData(Size.Large, 93)]
         public void ShouldHaveCorrectCaloriesForSize(Size size, uint cal)
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            drink.Size = size;
+            Assert.True(size == drink.Size);
+            Assert.True(cal == drink.Calories);
         }
 
         [Theory]
@@ -53,6 +71,12 @@ namespace BleakwindBuffet.DataTests.UnitTests.DrinkTests
         [InlineData(false)]
         public void ShouldHaveCorrectSpecialInstructions(bool includeIce)
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            drink.Ice = includeIce;
+            if (drink.Ice)
+            {
+                Assert.Contains<string>("Add ice", drink.SpecialInstructions);
+            }
         }
 
         [Theory]
@@ -61,6 +85,9 @@ namespace BleakwindBuffet.DataTests.UnitTests.DrinkTests
         [InlineData(Size.Large, "Large Markarth Milk")]
         public void ShouldReturnCorrectToStringBasedOnSize(Size size, string name)
         {
+            Data.Drinks.MarkarthMilk drink = new Data.Drinks.MarkarthMilk();
+            drink.Size = size;
+            Assert.Equal(drink.ToString(), name);
         }
     }
 }

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "DataTests": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Greg\\source\\repos\\bleakwind-buffet",
+      "environmentVariables": {
+        "DLL": "PATH=C:\\Users\\Greg\\source\\repos\\bleakwind-buffet\\Data\\bin\\Debug\\netstandard2.0;%PATH%"
+      }
+    }
+  }
+}
