@@ -87,7 +87,7 @@ namespace BleakwindBuffet.DataTests.UnitTests.EntreeTests
             }
             if (!entree.Onion)
             {
-                Assert.Contains<string>("Hold onion", entree.SpecialInstructions);
+                Assert.Contains<string>("Hold onions", entree.SpecialInstructions);
             }
             if (!entree.Roll)
             {

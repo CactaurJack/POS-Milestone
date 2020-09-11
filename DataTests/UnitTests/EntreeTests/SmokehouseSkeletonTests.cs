@@ -103,7 +103,7 @@ namespace BleakwindBuffet.DataTests.UnitTests.EntreeTests
             }
             if (!entree.Egg)
             {
-                Assert.Contains<string>("Hold egg", entree.SpecialInstructions);
+                Assert.Contains<string>("Hold eggs", entree.SpecialInstructions);
             }
             if (!entree.HashBrowns)
             {

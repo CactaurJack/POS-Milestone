@@ -30,7 +30,7 @@ namespace BleakwindBuffet.Data.Entrees
             {
                 List<string> specialInstructions = new List<string>();
                 if (!SausageLink) { specialInstructions.Add("Hold sausage"); };
-                if (!Egg) { specialInstructions.Add("Hold egg"); };
+                if (!Egg) { specialInstructions.Add("Hold eggs"); };
                 if (!HashBrowns) { specialInstructions.Add("Hold hashbrowns"); };
                 if (!Pancake) { specialInstructions.Add("Hold pancakes"); };
                 return specialInstructions;
