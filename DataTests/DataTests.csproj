@@ -18,12 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\bleakwind-buffet\Data\Data.csproj" />
-    <ProjectReference Include="..\Data\Data.csproj" />
+    <Folder Include="BleakwindBuffet\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BleakwindBuffet\" />
+    <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
 
 </Project>
