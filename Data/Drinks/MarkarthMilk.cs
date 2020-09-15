@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using BleakwindBuffet.Data.Enums;
+using Data;
 
 namespace BleakwindBuffet.Data.Drinks
 {
-    public class MarkarthMilk
+    public class MarkarthMilk : Drink
     {
         public Size Size { get; set; } = Size.Small;
         public uint Calories

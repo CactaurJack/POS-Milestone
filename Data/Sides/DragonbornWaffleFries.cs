@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using BleakwindBuffet.Data.Enums;
+using Data;
 
 namespace BleakwindBuffet.Data.Sides
 {
-    public class DragonbornWaffleFries
+    public class DragonbornWaffleFries : Side
     {
         public Size Size { get; set; } = Size.Small;
         public uint Calories

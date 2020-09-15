@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using BleakwindBuffet.Data.Enums;
+using Data;
 
 namespace BleakwindBuffet.Data.Drinks
 {
-    public class AretinoAppleJuice
+    public class AretinoAppleJuice : Drink
     {
+
         public Size Size { get; set; } = Size.Small;
         public uint Calories
         {
@@ -29,6 +31,7 @@ namespace BleakwindBuffet.Data.Drinks
                 throw new NotImplementedException($"Unknown size of {Size}");
             }
         }
+        
 
         public bool Ice { get; set; } = false;
 
@@ -47,6 +50,8 @@ namespace BleakwindBuffet.Data.Drinks
             return Size + " Aretino Apple Juice";
             
         }
+
+        
         
     }
 }
