@@ -52,6 +52,7 @@ namespace PointOfSale
             double subtotal = 0.0;
             double total = 0.0;
 
+
             Orders.Items.Clear();
             for(int i = 0; i < _input.Count; i++)
             {
