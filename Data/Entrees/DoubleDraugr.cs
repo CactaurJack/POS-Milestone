@@ -10,12 +10,12 @@ namespace BleakwindBuffet.Data.Entrees
         /// <summary>
         /// Gets burger price
         /// </summary>
-        public double Price => 7.32;
+        public override double Price => 7.32;
 
         /// <summary>
         /// Gets calories
         /// </summary>
-        public uint Calories => 843;
+        public override uint Calories => 843;
 
         public bool Ketchup { get; set; } = true;
 

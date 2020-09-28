@@ -1,0 +1,54 @@
+﻿<Window x:Class="PointOfSale.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PointOfSale"
+        mc:Ignorable="d"
+        Title="Bleakwind Buffet Point of Sale" Height="450" Width="800" HorizontalContentAlignment="Center">
+	<Grid x:Name="grid">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Button Grid.Column="0" Grid.Row="0" Click="BriarheartBurger_Button" Name="BriarheartBurgur">Briarheart Burger</Button>
+		<Button Grid.Column="0" Grid.Row="1" Click="DoubleDraugr_Button" Name="DoubleDraugr">Double Draugr</Button>
+		<Button Grid.Column="0" Grid.Row="2" Click="ThalmorTriple_Button" Name="ThalmorTriple">Thalmor Triple</Button>
+		<Button Grid.Column="0" Grid.Row="3" Click="GardenOrcOmelette_Button" Name="GardenOrcOmelette">Garden Orc Omelette</Button>
+		<Button Grid.Column="0" Grid.Row="4" Click="PhillyPoacher_Button" Name="PhillyPoacher">Philly Poacher</Button>
+		<Button Grid.Column="0" Grid.Row="5" Click="SmokehouseSkeleton_Button" Name="SmokehouseSkeleton">Smokehouse Skeleton</Button>
+		<Button Grid.Column="0" Grid.Row="6" Click="ThugsTBone_Button" Name="ThugsTBone">Thugs T-Bone</Button>
+
+		<Button Grid.Column="1" Grid.Row="0" Click="DragonbornWaffleFries_Button" Name="DragonbornWaffleFries">Dragonborn Waffle Fries</Button>
+		<Button Grid.Column="1" Grid.Row="1" Click="FriedMiraak_Button" Name="FriedMiraak">Fried Miraak</Button>
+		<Button Grid.Column="1" Grid.Row="2" Click="MadOtarGrits_Button" Name="MadOtarGrits">Mad Otar Grits</Button>
+		<Button Grid.Column="1" Grid.Row="3" Click="VokunSalad_Button" Name="VokunSalad">Vokun Salad</Button>
+
+		<Button Grid.Column="2" Grid.Row="0" Click="AretinoAppleJuice_Button" Name="AretinoAppleJuice">"Aretino Apple Juice"</Button>
+		<Button Grid.Column="2" Grid.Row="1" Click="CandlehearthCoffee_Button" Name="CandlehearthCoffee">Candlehearth Coffee</Button>
+		<Button Grid.Column="2" Grid.Row="2" Click="MarkarthMilk_Button" Name="MarkarthMilk">MarkarthMilk</Button>
+		<Button Grid.Column="2" Grid.Row="3" Click="SailorSoda_Button" Name="SailorSoda">Sailor Soda</Button>
+		<Button Grid.Column="2" Grid.Row="4" Click="WarriorWater_Button" Name="WarriorWater">Warrior Water</Button>
+
+		<ListBox x:Name="Orders"  HorizontalAlignment="Left" Grid.ColumnSpan="3" Margin="114,0,0,0" Width="229" Grid.Column="4" SelectionChanged="Orders_SelectionChanged" Height="Auto" Grid.RowSpan="8">
+			<ListBoxItem></ListBoxItem>
+		</ListBox>
+
+	</Grid>
+
+</Window>

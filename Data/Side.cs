@@ -7,9 +7,9 @@ namespace Data
 {
     public abstract class Side : IOrderItem
     {
-        public double Price { get; }
-        public uint Calories { get; }
-        public List<string> SpecialInstructions { get; }
-        public Size Size { get; }
+        public virtual double Price { get; }
+        public virtual uint Calories { get; }
+        public virtual List<string> SpecialInstructions { get; }
+        public virtual Size Size { get; set; }
     }
 }

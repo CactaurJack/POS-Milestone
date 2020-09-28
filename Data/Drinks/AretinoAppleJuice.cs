@@ -9,7 +9,7 @@ namespace BleakwindBuffet.Data.Drinks
     public class AretinoAppleJuice : Drink
     {
 
-        public Size Size { get; set; } = Size.Small;
+        public override Size Size { get; set; } = Size.Small;
         public uint Calories
         {
             get
@@ -21,7 +21,7 @@ namespace BleakwindBuffet.Data.Drinks
             }
         }
 
-        public double Price
+        public override double Price
         {
             get
             {
@@ -35,7 +35,7 @@ namespace BleakwindBuffet.Data.Drinks
 
         public bool Ice { get; set; } = false;
 
-        public List<string> SpecialInstructions
+        public override List<string> SpecialInstructions
         {
             get
             {

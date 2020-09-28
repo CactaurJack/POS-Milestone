@@ -8,8 +8,8 @@ namespace BleakwindBuffet.Data.Drinks
 {
     public class WarriorWater : Drink
     {
-        public Size Size { get; set; } = Size.Small;
-        public uint Calories
+        public override Size Size { get; set; } = Size.Small;
+        public override uint Calories
         {
             get
             {
@@ -17,7 +17,7 @@ namespace BleakwindBuffet.Data.Drinks
             }
         }
 
-        public double Price
+        public override double Price
         {
             get
             {
@@ -28,7 +28,7 @@ namespace BleakwindBuffet.Data.Drinks
         public bool Ice { get; set; } = true;
         public bool Lemon { get; set; } = false;
 
-        public List<string> SpecialInstructions
+        public override List<string> SpecialInstructions
         {
             get
             {

@@ -8,7 +8,7 @@ namespace BleakwindBuffet.Data.Sides
 {
     public class MadOtarGrits : Side
     {
-        public Size Size { get; set; } = Size.Small;
+        public override Size Size { get; set; } = Size.Small;
         public uint Calories
         {
             get
@@ -20,7 +20,7 @@ namespace BleakwindBuffet.Data.Sides
             }
         }
 
-        public double Price
+        public override double Price
         {
             get
             {
@@ -31,7 +31,7 @@ namespace BleakwindBuffet.Data.Sides
             }
         }
 
-        public List<string> SpecialInstructions
+        public override List<string> SpecialInstructions
         {
             get
             {

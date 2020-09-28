@@ -8,8 +8,8 @@ namespace BleakwindBuffet.Data.Sides
 {
     public class FriedMiraak : Side
     {
-        public Size Size { get; set; } = Size.Small;
-        public uint Calories
+        public override Size Size { get; set; } = Size.Small;
+        public override uint Calories
         {
             get
             {
@@ -20,7 +20,7 @@ namespace BleakwindBuffet.Data.Sides
             }
         }
 
-        public double Price
+        public override double Price
         {
             get
             {
@@ -31,7 +31,7 @@ namespace BleakwindBuffet.Data.Sides
             }
         }
 
-        public List<string> SpecialInstructions
+        public override List<string> SpecialInstructions
         {
             get
             {
