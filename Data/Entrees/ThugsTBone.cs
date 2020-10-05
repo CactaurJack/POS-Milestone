@@ -18,7 +18,7 @@ namespace BleakwindBuffet.Data.Entrees
         public override uint Calories => 982;
 
 
-        public List<string> SpecialInstructions
+        public override List<string> SpecialInstructions
         {
             get
             {

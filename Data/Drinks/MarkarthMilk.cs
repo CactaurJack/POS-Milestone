@@ -1,14 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using BleakwindBuffet.Data.Enums;
 using Data;
 
 namespace BleakwindBuffet.Data.Drinks
 {
-    public class MarkarthMilk : Drink
+    public class MarkarthMilk : Drink, INotifyPropertyChanged
     {
-        public override Size Size { get; set; } = Size.Small;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public MarkarthMilk()
+        {
+            Ice = false;
+            Size = Size.Small;
+        }
+
+        private Size size = Size.Small;
+        public override Size Size
+        {
+            get
+            {
+                return size;
+            }
+
+            set
+            {
+                size = value;
+                OnPropertyChanged();
+            }
+        }
         public override uint Calories
         {
             get
@@ -31,7 +60,20 @@ namespace BleakwindBuffet.Data.Drinks
             }
         }
 
-        public bool Ice { get; set; } = false;
+        private bool ice = false;
+        public bool Ice
+        {
+            get
+            {
+                return ice;
+            }
+
+            set
+            {
+                ice = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override List<string> SpecialInstructions
         {

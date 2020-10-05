@@ -1,14 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using BleakwindBuffet.Data.Enums;
 using Data;
 
 namespace BleakwindBuffet.Data.Sides
 {
-    public class DragonbornWaffleFries : Side
+    public class DragonbornWaffleFries : Side, INotifyPropertyChanged
     {
-        public override Size Size { get; set; } = Size.Small;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private Size size = Size.Small;
+        public override Size Size
+        {
+            get
+            {
+                return size;
+            }
+
+            set
+            {
+                size = value;
+                OnPropertyChanged();
+            }
+        }
         public override uint Calories
         {
             get

@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Data;
 
 namespace BleakwindBuffet.Data.Entrees
 {
-    public class DoubleDraugr : Entree
+    public class DoubleDraugr : Entree, INotifyPropertyChanged
     {
+
+        /// <summary>
+        /// Establishes event handler to identify changes in boolean values
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         /// <summary>
         /// Gets burger price
         /// </summary>
@@ -17,23 +30,132 @@ namespace BleakwindBuffet.Data.Entrees
         /// </summary>
         public override uint Calories => 843;
 
-        public bool Ketchup { get; set; } = true;
 
-        public bool Bun { get; set; } = true;
+        /// <summary>
+        /// Establishes special instructions
+        /// Each setter calls OnPropertyChanged method to produce changed event on set command
+        /// </summary>
+        private bool ketchup = true;
+        public bool Ketchup
+        {
+            get
+            {
+                return ketchup;
+            }
 
-        public bool Mustard { get; set; } = true;
+            set
+            {
+                ketchup = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public bool Pickle { get; set; } = true;
+        private bool bun = true;
+        public bool Bun
+        {
+            get
+            {
+                return bun;
+            }
 
-        public bool Cheese { get; set; } = true;
+            set
+            {
+                bun = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public bool Tomato { get; set; } = true;
+        private bool mustard = true;
+        public bool Mustard
+        {
+            get
+            {
+                return mustard;
+            }
 
-        public bool Lettuce { get; set; } = true;
+            set
+            {
+                mustard = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public bool Mayo { get; set; } = true;
+        private bool pickle = true;
+        public bool Pickle
+        {
+            get
+            {
+                return pickle;
+            }
 
-        public List<string> SpecialInstructions
+            set
+            {
+                pickle = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool cheese = true;
+        public bool Cheese
+        {
+            get
+            {
+                return cheese;
+            }
+
+            set
+            {
+                cheese = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool tomato = true;
+        public bool Tomato
+        {
+            get
+            {
+                return tomato;
+            }
+
+            set
+            {
+                tomato = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool lettuce = true;
+        public bool Lettuce
+        {
+            get
+            {
+                return lettuce;
+            }
+
+            set
+            {
+                lettuce = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool mayo = true;
+        public bool Mayo
+        {
+            get
+            {
+                return mayo;
+            }
+
+            set
+            {
+                mayo = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public override List<string> SpecialInstructions
         {
             get
             {

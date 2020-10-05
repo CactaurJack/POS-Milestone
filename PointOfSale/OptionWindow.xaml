@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:PointOfSale"
         mc:Ignorable="d"
         Title="OptionWindow" Height="450" Width="800">
-    <Grid>
-		<DataGrid Name="SpecialInstructionsMenu" AutoGenerateColumns="False" ItemsSource="{Binding}" SelectionChanged="SpecialInstructionsMenu_SelectionChanged">
+	<Grid>
+		<DataGrid Name="SpecialInstructionsMenu" AutoGenerateColumns="False" ItemsSource="{Binding Current}" SelectionChanged="SpecialInstructionsMenu_SelectionChanged">
 			<DataGrid.Columns>
 				<DataGridCheckBoxColumn Header="Special Instructions" IsReadOnly="False" IsThreeState="False" Binding="{Binding SpecialInstructions}" />
 				<DataGridTextColumn Header="Instructions" />

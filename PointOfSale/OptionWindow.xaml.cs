@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,17 +19,10 @@ namespace PointOfSale
     /// </summary>
     public partial class OptionWindow : Window
     {
+        public IOrderItem Current;
         public OptionWindow()
         {
             InitializeComponent();
-            SpecialInstructionsMenu.Items.Add(true);
-            SpecialInstructionsMenu.Items.Add(true);
-            SpecialInstructionsMenu.Items.Add(true);
-            SpecialInstructionsMenu.Items.Add(true);
-            SpecialInstructionsMenu.Items.Add(true);
-            SpecialInstructionsMenu.Items.Add(true);
-            SpecialInstructionsMenu.Items.Add(true);
-
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -36,9 +31,18 @@ namespace PointOfSale
             this.Hide();
         }
 
+        public void AssignItem(IOrderItem orderItem)
+        {
+            Current = orderItem;
+            SpecialInstructionsMenu.Items.Add(Current.SpecialInstructions);
+        }
+
+        
         private void SpecialInstructionsMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+
     }
 }

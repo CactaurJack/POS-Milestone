@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Data;
 
 namespace BleakwindBuffet.Data.Entrees
 {
-    public class GardenOrcOmelette : Entree
+    public class GardenOrcOmelette : Entree, INotifyPropertyChanged
     {
+
+        /// <summary>
+        /// Establishes event handler to identify changes in boolean values
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         /// <summary>
         /// Gets burger price
         /// </summary>
@@ -17,15 +30,72 @@ namespace BleakwindBuffet.Data.Entrees
         /// </summary>
         public override uint Calories => 404;
 
-        public bool Broccoli { get; set; } = true;
 
-        public bool Mushrooms { get; set; } = true;
+        /// <summary>
+        /// Establishes special instructions
+        /// Each setter calls OnPropertyChanged method to produce changed event on set command
+        /// </summary>
+        private bool broccoli = true;
+        public bool Broccoli
+        {
+            get
+            {
+                return broccoli;
+            }
 
-        public bool Tomato { get; set; } = true;
+            set
+            {
+                broccoli = value;
+                OnPropertyChanged();
+            }
+        }
 
-        public bool Cheddar { get; set; } = true;
+        private bool mushrooms = true;
+        public bool Mushrooms
+        {
+            get
+            {
+                return mushrooms;
+            }
 
-        public List<string> SpecialInstructions
+            set
+            {
+                mushrooms = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool tomato = true;
+        public bool Tomato
+        {
+            get
+            {
+                return tomato;
+            }
+
+            set
+            {
+                tomato = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool cheddar = true;
+        public bool Cheddar
+        {
+            get
+            {
+                return cheddar;
+            }
+
+            set
+            {
+                cheddar = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public override List<string> SpecialInstructions
         {
             get
             {

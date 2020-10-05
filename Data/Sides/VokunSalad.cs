@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using BleakwindBuffet.Data.Enums;
 using Data;
 
 namespace BleakwindBuffet.Data.Sides
 {
-    public class VokunSalad : Side
+    public class VokunSalad : Side, INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         public override Size Size { get; set; } = Size.Small;
         public override uint Calories
         {

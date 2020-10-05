@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using Data;
 
 namespace BleakwindBuffet.Data.Entrees
 {
-    public class SmokehouseSkeleton : Entree
+    public class SmokehouseSkeleton : Entree, INotifyPropertyChanged
     {
+
+        /// <summary>
+        /// Establishes event handler to identify changes in boolean values
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
         /// <summary>
         /// Gets burger price
         /// </summary>
@@ -17,13 +30,71 @@ namespace BleakwindBuffet.Data.Entrees
         /// </summary>
         public override uint Calories => 602;
 
-        public bool SausageLink { get; set; } = true;
 
-        public bool Egg { get; set; } = true;
 
-        public bool HashBrowns { get; set; } = true;
+        /// <summary>
+        /// Establishes special instructions
+        /// Each setter calls OnPropertyChanged method to produce changed event on set command
+        /// </summary>
+        private bool sausageLink = true;
+        public bool SausageLink
+        {
+            get
+            {
+                return sausageLink;
+            }
 
-        public bool Pancake { get; set; } = true;
+            set
+            {
+                sausageLink = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool egg = true;
+        public bool Egg
+        {
+            get
+            {
+                return egg;
+            }
+
+            set
+            {
+                egg = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool hashBrowns = true;
+        public bool HashBrowns
+        {
+            get
+            {
+                return hashBrowns;
+            }
+
+            set
+            {
+                hashBrowns = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool pancake = true;
+        public bool Pancake
+        {
+            get
+            {
+                return pancake;
+            }
+
+            set
+            {
+                pancake = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override List<string> SpecialInstructions
         {

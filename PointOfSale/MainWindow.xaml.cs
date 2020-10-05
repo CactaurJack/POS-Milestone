@@ -28,6 +28,18 @@ namespace PointOfSale
         public List<IOrderItem> orderList;
         public double tax;
         public OptionWindow optionWindow;
+        public TestWindow testWindow;
+        public DoubleDraugrCustom doubleDraugrCustom;
+        public ThalmorTripleCustom thalmorTripleCustom;
+        public GardenOrcCustom gardenOrcOmelette;
+        public PhillyCustom phillyPoacherCustom;
+        public SmokehouseSkeletonCustom smokehouseSkeletonCustom;
+        public SidesCustom sideCustom;
+        public SailorSodaCustom sailorSodaCustom;
+        public AretinoAppleJuiceCustom aretinoAppleJuiceCustom;
+        public MarkarthMilkCustom markarthMilkCustom;
+        public WarriorWaterCustom warriorWaterCustom;
+        public CandleHearthCoffeeCustom candleHearthCoffeeCustom;
         public MainWindow()
         {
             InitializeComponent();
@@ -36,9 +48,19 @@ namespace PointOfSale
             tax = .065;
             UserControl UControl;
             optionWindow = new OptionWindow();
-            
-            
-        
+            testWindow = new TestWindow();
+            doubleDraugrCustom = new DoubleDraugrCustom();
+            thalmorTripleCustom = new ThalmorTripleCustom();
+            gardenOrcOmelette = new GardenOrcCustom();
+            phillyPoacherCustom = new PhillyCustom();
+            smokehouseSkeletonCustom = new SmokehouseSkeletonCustom();
+            sideCustom = new SidesCustom();
+            sailorSodaCustom = new SailorSodaCustom();
+            aretinoAppleJuiceCustom = new AretinoAppleJuiceCustom();
+            markarthMilkCustom = new MarkarthMilkCustom();
+            warriorWaterCustom = new WarriorWaterCustom();
+            candleHearthCoffeeCustom = new CandleHearthCoffeeCustom();
+
             
         }
 
@@ -69,43 +91,73 @@ namespace PointOfSale
 
         private void Orders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            optionWindow.Show();
+            optionWindow.AssignItem(orderList[Orders.SelectedIndex]);
+            //testWindow.orderItem(orderList[Orders.SelectedIndex]));
+            //optionWindow.Show();
+        }
+
+        public void tempIOrder(IOrderItem _input)
+        {
+            orderList.Add(_input);
         }
 
         private void BriarheartBurger_Button(object sender, RoutedEventArgs e)
         {
-            
-            orderList.Add(new BriarheartBurger());
+            BriarheartBurger entree = new BriarheartBurger();
+            testWindow.orderItem(entree);
+            testWindow.ShowDialog();
+            entree = testWindow.returnOrder();
+            orderList.Add(entree);
             Orders_Populate(orderList);
         }
 
         private void DoubleDraugr_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new DoubleDraugr());
+            DoubleDraugr entree = new DoubleDraugr();
+            doubleDraugrCustom.orderItem(entree);
+            doubleDraugrCustom.ShowDialog();
+            entree = doubleDraugrCustom.returnOrder();
+            orderList.Add(entree);
             Orders_Populate(orderList);
         }
 
         private void ThalmorTriple_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new ThalmorTriple());
+            ThalmorTriple entree = new ThalmorTriple();
+            thalmorTripleCustom.orderItem(entree);
+            thalmorTripleCustom.ShowDialog();
+            entree = thalmorTripleCustom.returnOrder();
+            orderList.Add(entree);
             Orders_Populate(orderList);
         }
 
         private void GardenOrcOmelette_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new GardenOrcOmelette());
+            GardenOrcOmelette entree = new GardenOrcOmelette();
+            gardenOrcOmelette.orderItem(entree);
+            gardenOrcOmelette.ShowDialog();
+            entree = gardenOrcOmelette.returnOrder();
+            orderList.Add(entree);
             Orders_Populate(orderList);
         }
 
         private void PhillyPoacher_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new PhillyPoacher());
+            PhillyPoacher entree = new PhillyPoacher();
+            phillyPoacherCustom.orderItem(entree);
+            phillyPoacherCustom.ShowDialog();
+            entree = phillyPoacherCustom.returnOrder();
+            orderList.Add(entree);
             Orders_Populate(orderList);
         }
 
         private void SmokehouseSkeleton_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new SmokehouseSkeleton());
+            SmokehouseSkeleton entree = new SmokehouseSkeleton();
+            smokehouseSkeletonCustom.orderItem(entree);
+            smokehouseSkeletonCustom.ShowDialog();
+            entree = smokehouseSkeletonCustom.returnOrder();
+            orderList.Add(entree);
             Orders_Populate(orderList);
         }
 
@@ -117,56 +169,79 @@ namespace PointOfSale
 
         private void DragonbornWaffleFries_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new DragonbornWaffleFries());
+            sideCustom.orderIn(new DragonbornWaffleFries());
+            sideCustom.ShowDialog();
+            orderList.Add(sideCustom.returnItem());
             Orders_Populate(orderList);
         }
 
         private void FriedMiraak_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new FriedMiraak());
+            sideCustom.orderIn(new FriedMiraak());
+            sideCustom.ShowDialog();
+            orderList.Add(sideCustom.returnItem());
             Orders_Populate(orderList);
         }
 
-
         private void VokunSalad_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new VokunSalad());
+            sideCustom.orderIn(new VokunSalad());
+            sideCustom.ShowDialog();
+            orderList.Add(sideCustom.returnItem());
             Orders_Populate(orderList);
         }
 
         private void MadOtarGrits_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new MadOtarGrits());
+            sideCustom.orderIn(new MadOtarGrits());
+            sideCustom.ShowDialog();
+            orderList.Add(sideCustom.returnItem());
             Orders_Populate(orderList);
         }
 
         private void WarriorWater_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new WarriorWater());
+            warriorWaterCustom.orderIn(new WarriorWater());
+            warriorWaterCustom.ShowDialog();
+            orderList.Add(warriorWaterCustom.returnItem());
             Orders_Populate(orderList);
         }
 
         private void SailorSoda_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new SailorSoda());
+            sailorSodaCustom.orderIn(new SailorSoda());
+            sailorSodaCustom.ShowDialog();
+            orderList.Add(sailorSodaCustom.returnItem());
             Orders_Populate(orderList);
         }
 
         private void MarkarthMilk_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new MarkarthMilk());
+            markarthMilkCustom.orderIn(new MarkarthMilk());
+            markarthMilkCustom.ShowDialog();
+            orderList.Add(markarthMilkCustom.returnItem());
             Orders_Populate(orderList);
         }
 
         private void CandlehearthCoffee_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new CandlehearthCoffee());
+            candleHearthCoffeeCustom.orderIn(new CandlehearthCoffee());
+            candleHearthCoffeeCustom.ShowDialog();
+            orderList.Add(candleHearthCoffeeCustom.returnItem());
             Orders_Populate(orderList);
         }
 
         private void AretinoAppleJuice_Button(object sender, RoutedEventArgs e)
         {
-            orderList.Add(new AretinoAppleJuice());
+            aretinoAppleJuiceCustom.orderIn(new AretinoAppleJuice());
+            aretinoAppleJuiceCustom.ShowDialog();
+            orderList.Add(aretinoAppleJuiceCustom.returnItem());
+            Orders_Populate(orderList);
+        }
+
+        private void Clear_Button(object sender, RoutedEventArgs e)
+        {
+            orderList.RemoveAt(orderList.Count - 1);
             Orders_Populate(orderList);
         }
     }

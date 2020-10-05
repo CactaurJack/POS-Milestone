@@ -1,14 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using BleakwindBuffet.Data.Enums;
 using Data;
 
 namespace BleakwindBuffet.Data.Drinks
 {
-    public class CandlehearthCoffee : Drink
+    public class CandlehearthCoffee : Drink, INotifyPropertyChanged
     {
-        public override Size Size { get; set; } = Size.Small;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string name = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public CandlehearthCoffee()
+        {
+        }
+
+        private Size size = Size.Small;
+        public override Size Size {
+            get
+            {
+                return size;
+            }
+
+            set
+            {
+                size = value;
+                OnPropertyChanged();
+            }
+        }
         public override uint Calories
         {
             get
@@ -31,9 +56,48 @@ namespace BleakwindBuffet.Data.Drinks
             }
         }
 
-        public bool Ice { get; set; } = false;
-        public bool RoomForCream { get; set; } = false;
-        public bool Decaf { get; set; } = false;
+        private bool ice = false;
+        public bool Ice
+        {
+            get
+            {
+                return ice;
+            }
+
+            set
+            {
+                ice = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool roomForCream = false;
+        public bool RoomForCream {
+            get
+            {
+                return roomForCream;
+            }
+
+            set
+            {
+                roomForCream = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool decaf = false;
+        public bool Decaf {
+            get
+            {
+                return decaf;
+            }
+
+            set
+            {
+                decaf = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override List<string> SpecialInstructions
         {
