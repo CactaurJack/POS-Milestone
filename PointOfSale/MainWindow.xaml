@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="Bleakwind Buffet Point of Sale" Height="450" Width="800" HorizontalContentAlignment="Center">
 	<Grid x:Name="grid">
+		<Grid.Resources>
+			<DataTemplate x:Key="OrderListTemplate">
+				<TextBlock Text="{Binding Path=Order}"/>
+			</DataTemplate>
+		</Grid.Resources>
 		<Grid.RowDefinitions>
 			<RowDefinition/>
 			<RowDefinition/>
@@ -45,7 +50,9 @@
 		<Button Grid.Column="2" Grid.Row="3" Click="SailorSoda_Button" Name="SailorSoda">Sailor Soda</Button>
 		<Button Grid.Column="2" Grid.Row="4" Click="WarriorWater_Button" Name="WarriorWater">Warrior Water</Button>
 
+		<Button Grid.Column="4" Grid.Row="5" Click="Clear_Order_Button" Name="Clear_Order">Clear Last Order</Button>
 		<Button Grid.Column="4" Grid.Row="7" Click="Clear_Button" Name="Clear">Clear Item</Button>
+		<Button Grid.Column="4" Grid.Row="6" Click="Order_Button" Name="Order">Order Items</Button>
 
 		<ListBox x:Name="Orders"  HorizontalAlignment="Left" Grid.ColumnSpan="3" Margin="114,0,0,0" Width="229" Grid.Column="4" SelectionChanged="Orders_SelectionChanged" Height="Auto" Grid.RowSpan="8">
 			<ListBoxItem></ListBoxItem>

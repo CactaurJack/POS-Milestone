@@ -5,6 +5,7 @@ using Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,8 +25,14 @@ namespace PointOfSale
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        /// <summary>
+        /// Handles declarations of global variables and custimization screens
+        /// </summary>
         public List<IOrderItem> orderList;
+        public List<Order> ListOfOrders;
+        private List<int> OrderIndex;
+        public Order currentOrder;
+        public int orderNumber = 1;
         public double tax;
         public OptionWindow optionWindow;
         public TestWindow testWindow;
@@ -40,12 +47,15 @@ namespace PointOfSale
         public MarkarthMilkCustom markarthMilkCustom;
         public WarriorWaterCustom warriorWaterCustom;
         public CandleHearthCoffeeCustom candleHearthCoffeeCustom;
+
+
         public MainWindow()
         {
             InitializeComponent();
             TextBox textBox1 = new TextBox();
             orderList = new List<IOrderItem>();
-            tax = .065;
+            ListOfOrders = new List<Order>();
+            currentOrder = new Order(orderNumber);
             UserControl UControl;
             optionWindow = new OptionWindow();
             testWindow = new TestWindow();
@@ -60,6 +70,8 @@ namespace PointOfSale
             markarthMilkCustom = new MarkarthMilkCustom();
             warriorWaterCustom = new WarriorWaterCustom();
             candleHearthCoffeeCustom = new CandleHearthCoffeeCustom();
+            OrderIndex = new List<int>();
+            OrderIndex.Add(0);
 
             
         }
@@ -69,9 +81,15 @@ namespace PointOfSale
             
         }
 
+
+        /// <summary>
+        /// Previous implimentation of display handling of the orders list
+        /// replaced due to lack of needed functionality
+        /// </summary>
+        /// <param name="_input"></param>
         private void Orders_Populate(List<IOrderItem> _input)
         {
-            double subtotal = 0.0;
+            /*double subtotal = 0.0;
             double total = 0.0;
 
 
@@ -87,20 +105,67 @@ namespace PointOfSale
             total = subtotal * tax;
             Orders.Items.Add("Tax = " + Math.Round(total, 2));
             Orders.Items.Add("Total = " + Math.Round(subtotal + total, 2));
+
+            Orders.Items.Add("Order Number Test # " + currentOrder.orderNumber);
+            Orders.Items.Add("Subtotal Test = " + currentOrder.Subtotal);
+            Orders.Items.Add("Tax Test = " + currentOrder.Tax);
+            Orders.Items.Add("Total Test = " + currentOrder.Total);*/
+
+            /*foreach (Order x in ListOfOrders )
+            {
+                Orders.Items.Add("Order Number Test # " + x.orderNumber);
+                Orders.Items.Add("Subtotal Test = " + x.Subtotal);
+                Orders.Items.Add("Tax Test = " + x.Tax);
+                Orders.Items.Add("Total Test = " + x.Total);
+            }*/
         }
 
+        /// <summary>
+        /// Method for formatting output from completed order
+        /// Called only by Order_Button method
+        /// Updates list of the number of Items in Orders for formatting purposes
+        /// </summary>
+        private void Orders_Populate()
+        {
+                Orders.Items.Add("");
+                Orders.Items.Add("Order Number # " + currentOrder.orderNumber);
+                Orders.Items.Add("Total Calories = " + currentOrder.Calories);
+                Orders.Items.Add("Subtotal = " + currentOrder.Subtotal);
+                Orders.Items.Add("Tax = " + currentOrder.Tax);
+                Orders.Items.Add("Total = " + currentOrder.Total);
+                Orders.Items.Add("");
+                OrderIndex.Add(Orders.Items.Count - 1);
+                
+                //Adds the Data.Order data directly into the binding on the ListBox
+                //causes oddities in formating and abberant behavior disabled for now
+                //Orders.Items.Add(currentOrder);
+        }
+
+
+        /// <summary>
+        /// Allows notification that the selected item in ListBox has changed
+        /// not currently used, left in for possible future functionality
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Orders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            optionWindow.AssignItem(orderList[Orders.SelectedIndex]);
+            int test = Orders.SelectedIndex;
+            object testing = Orders.SelectedItem;
+            //optionWindow.AssignItem(orderList[Orders.SelectedIndex]);
             //testWindow.orderItem(orderList[Orders.SelectedIndex]));
             //optionWindow.Show();
         }
 
-        public void tempIOrder(IOrderItem _input)
-        {
-            orderList.Add(_input);
-        }
 
+        /// <summary>
+        /// Begins button handling section
+        /// Each method handles the custimization window handling and object generation
+        /// as well as sending the ordered item, along with it's custimization to the currentOrder
+        /// variable to be added to the master order list on Order_Button press
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BriarheartBurger_Button(object sender, RoutedEventArgs e)
         {
             BriarheartBurger entree = new BriarheartBurger();
@@ -108,7 +173,18 @@ namespace PointOfSale
             testWindow.ShowDialog();
             entree = testWindow.returnOrder();
             orderList.Add(entree);
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(entree.ToString());
+            for(int i = 0; i < entree.SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + entree.SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(entree);
+
+            //Orders_Populate(orderList);
         }
 
         private void DoubleDraugr_Button(object sender, RoutedEventArgs e)
@@ -118,7 +194,14 @@ namespace PointOfSale
             doubleDraugrCustom.ShowDialog();
             entree = doubleDraugrCustom.returnOrder();
             orderList.Add(entree);
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(entree.ToString());
+            for (int i = 0; i < entree.SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + entree.SpecialInstructions[i]);
+            }
+
+            currentOrder.Add(entree);
         }
 
         private void ThalmorTriple_Button(object sender, RoutedEventArgs e)
@@ -128,7 +211,14 @@ namespace PointOfSale
             thalmorTripleCustom.ShowDialog();
             entree = thalmorTripleCustom.returnOrder();
             orderList.Add(entree);
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(entree.ToString());
+            for (int i = 0; i < entree.SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + entree.SpecialInstructions[i]);
+            }
+
+            currentOrder.Add(entree);
         }
 
         private void GardenOrcOmelette_Button(object sender, RoutedEventArgs e)
@@ -138,7 +228,14 @@ namespace PointOfSale
             gardenOrcOmelette.ShowDialog();
             entree = gardenOrcOmelette.returnOrder();
             orderList.Add(entree);
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(entree.ToString());
+            for (int i = 0; i < entree.SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + entree.SpecialInstructions[i]);
+            }
+
+            currentOrder.Add(entree);
         }
 
         private void PhillyPoacher_Button(object sender, RoutedEventArgs e)
@@ -148,7 +245,14 @@ namespace PointOfSale
             phillyPoacherCustom.ShowDialog();
             entree = phillyPoacherCustom.returnOrder();
             orderList.Add(entree);
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(entree.ToString());
+            for (int i = 0; i < entree.SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + entree.SpecialInstructions[i]);
+            }
+
+            currentOrder.Add(entree);
         }
 
         private void SmokehouseSkeleton_Button(object sender, RoutedEventArgs e)
@@ -158,13 +262,28 @@ namespace PointOfSale
             smokehouseSkeletonCustom.ShowDialog();
             entree = smokehouseSkeletonCustom.returnOrder();
             orderList.Add(entree);
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(entree.ToString());
+            for (int i = 0; i < entree.SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + entree.SpecialInstructions[i]);
+            }
+
+            currentOrder.Add(entree);
         }
 
         private void ThugsTBone_Button(object sender, RoutedEventArgs e)
         {
             orderList.Add(new ThugsTBone());
-            Orders_Populate(orderList);
+
+            ThugsTBone entree = new ThugsTBone();
+            Orders.Items.Add(entree.ToString());
+            for (int i = 0; i < entree.SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + entree.SpecialInstructions[i]);
+            }
+
+            currentOrder.Add(entree);
         }
 
         private void DragonbornWaffleFries_Button(object sender, RoutedEventArgs e)
@@ -172,7 +291,16 @@ namespace PointOfSale
             sideCustom.orderIn(new DragonbornWaffleFries());
             sideCustom.ShowDialog();
             orderList.Add(sideCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(sideCustom.returnItem().ToString());
+            for (int i = 0; i < sideCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + sideCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(sideCustom.returnItem());
         }
 
         private void FriedMiraak_Button(object sender, RoutedEventArgs e)
@@ -180,7 +308,16 @@ namespace PointOfSale
             sideCustom.orderIn(new FriedMiraak());
             sideCustom.ShowDialog();
             orderList.Add(sideCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(sideCustom.returnItem().ToString());
+            for (int i = 0; i < sideCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + sideCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(sideCustom.returnItem());
         }
 
         private void VokunSalad_Button(object sender, RoutedEventArgs e)
@@ -188,7 +325,16 @@ namespace PointOfSale
             sideCustom.orderIn(new VokunSalad());
             sideCustom.ShowDialog();
             orderList.Add(sideCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(sideCustom.returnItem().ToString());
+            for (int i = 0; i < sideCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + sideCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(sideCustom.returnItem());
         }
 
         private void MadOtarGrits_Button(object sender, RoutedEventArgs e)
@@ -196,7 +342,16 @@ namespace PointOfSale
             sideCustom.orderIn(new MadOtarGrits());
             sideCustom.ShowDialog();
             orderList.Add(sideCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(sideCustom.returnItem().ToString());
+            for (int i = 0; i < sideCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + sideCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(sideCustom.returnItem());
         }
 
         private void WarriorWater_Button(object sender, RoutedEventArgs e)
@@ -204,7 +359,16 @@ namespace PointOfSale
             warriorWaterCustom.orderIn(new WarriorWater());
             warriorWaterCustom.ShowDialog();
             orderList.Add(warriorWaterCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(warriorWaterCustom.returnItem().ToString());
+            for (int i = 0; i < warriorWaterCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + warriorWaterCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(warriorWaterCustom.returnItem());
         }
 
         private void SailorSoda_Button(object sender, RoutedEventArgs e)
@@ -212,7 +376,16 @@ namespace PointOfSale
             sailorSodaCustom.orderIn(new SailorSoda());
             sailorSodaCustom.ShowDialog();
             orderList.Add(sailorSodaCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(sailorSodaCustom.returnItem().ToString());
+            for (int i = 0; i < sailorSodaCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + sailorSodaCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(sailorSodaCustom.returnItem());
         }
 
         private void MarkarthMilk_Button(object sender, RoutedEventArgs e)
@@ -220,7 +393,16 @@ namespace PointOfSale
             markarthMilkCustom.orderIn(new MarkarthMilk());
             markarthMilkCustom.ShowDialog();
             orderList.Add(markarthMilkCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(markarthMilkCustom.returnItem().ToString());
+            for (int i = 0; i < markarthMilkCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + markarthMilkCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(markarthMilkCustom.returnItem());
         }
 
         private void CandlehearthCoffee_Button(object sender, RoutedEventArgs e)
@@ -228,7 +410,16 @@ namespace PointOfSale
             candleHearthCoffeeCustom.orderIn(new CandlehearthCoffee());
             candleHearthCoffeeCustom.ShowDialog();
             orderList.Add(candleHearthCoffeeCustom.returnItem());
-            Orders_Populate(orderList);
+
+            Orders.Items.Add(candleHearthCoffeeCustom.returnItem().ToString());
+            for (int i = 0; i < candleHearthCoffeeCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + candleHearthCoffeeCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(candleHearthCoffeeCustom.returnItem());
         }
 
         private void AretinoAppleJuice_Button(object sender, RoutedEventArgs e)
@@ -236,16 +427,85 @@ namespace PointOfSale
             aretinoAppleJuiceCustom.orderIn(new AretinoAppleJuice());
             aretinoAppleJuiceCustom.ShowDialog();
             orderList.Add(aretinoAppleJuiceCustom.returnItem());
-            Orders_Populate(orderList);
-        }
 
+            Orders.Items.Add(aretinoAppleJuiceCustom.returnItem().ToString());
+            for (int i = 0; i < aretinoAppleJuiceCustom.returnItem().SpecialInstructions.Count; i++)
+            {
+                Orders.Items.Add(" - " + aretinoAppleJuiceCustom.returnItem().SpecialInstructions[i]);
+            }
+
+            //Orders.Items.Add(currentOrder);
+
+            currentOrder.Add(aretinoAppleJuiceCustom.returnItem());
+        }
+        ///Ends ordering button handling
+
+
+        /// <summary>
+        /// Old clear item handling, functionality replaced by Clear_Order_Button
+        /// remains for future functionality
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Clear_Button(object sender, RoutedEventArgs e)
         {
             orderList.RemoveAt(orderList.Count - 1);
+
             Orders_Populate(orderList);
+        }
+
+        /// <summary>
+        /// Sends the currentOrder variable to the master list of orders
+        /// Sends command to update the Orders ListBox to display the order
+        /// Updates the running orderNumber
+        /// Creates a new instance of currentOrder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Order_Button(object sender, RoutedEventArgs e)
+        {
+            ListOfOrders.Add(currentOrder);
+            Orders_Populate();
+            orderNumber++;
+            currentOrder = new Order(orderNumber);
+        }
+
+
+        /// <summary>
+        /// Identifies if the order is partial or finalized
+        /// Removes entire previous order if it was completed
+        /// Removes all of the current order if it is not finalized
+        /// Provides logic to properly update the displayed order list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Clear_Order_Button(object sender, RoutedEventArgs e)
+        {
+            if(ListOfOrders.Count > 0 && OrderIndex[OrderIndex.Count - 1] == Orders.Items.Count - 1)
+            {
+                ListOfOrders.RemoveAt(ListOfOrders.Count - 1);
+                for (int i = OrderIndex[OrderIndex.Count - 1]; i > OrderIndex[OrderIndex.Count - 2]; i--)
+                {
+                    Orders.Items.RemoveAt(i);
+                }
+                orderNumber--;
+                OrderIndex.RemoveAt(OrderIndex.Count - 1);
+            }
+            else
+            {
+                for (int i = Orders.Items.Count - 1; i > OrderIndex[OrderIndex.Count - 1]; i--)
+                {
+                    Orders.Items.RemoveAt(i);
+                }
+                orderNumber = 1;
+                currentOrder = new Order(orderNumber);
+            }
         }
     }
 
+    /// <summary>
+    /// Unused Idea
+    /// </summary>
     public class UserControl : System.Windows.Controls.ContentControl
     {
         private void Button_Click(object sender, RoutedEventArgs e)
